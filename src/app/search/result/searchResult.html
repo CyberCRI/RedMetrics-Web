@@ -1,0 +1,6 @@
+<div ng-repeat="result in ctrl.search.results">
+    {{ result | json }}
+</div>
+<div ng-show="ctrl.search.results.length == 0">
+    No results
+</div>

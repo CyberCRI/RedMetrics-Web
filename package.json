@@ -1,0 +1,28 @@
+{
+    "name": "RedMetrics-client",
+    "version": "0.0.1",
+    "dependencies": {},
+    "devDependencies": {
+        "connect-livereload": "*",
+        "express": "*",
+        "gulp": "*",
+        "rimraf": "*",
+        "run-sequence": "*",
+        "gulp-rimraf": "*",
+        "gulp-concat": "*",
+        "gulp-embedlr": "*",
+        "gulp-jshint": "*",
+        "gulp-livereload": "*",
+        "gulp-util": "*",
+        "tiny-lr": "*",
+        "gulp-sass": "*",
+        "gulp-ng-annotate": "*",
+        "gulp-usemin": "*",
+        "gulp-minify-css": "*",
+        "gulp-minify-html": "*",
+        "gulp-copy": "*",
+        "gulp-uglify": "*",
+        "gulp-rev": "*",
+        "gulp-angular-templatecache": "*"
+    }
+}
