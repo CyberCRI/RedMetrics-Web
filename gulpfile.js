@@ -37,6 +37,9 @@ var pathToJsSource = 'src/app/**/*.js';
 var pathToTemplates = 'src/app/**/*.html';
 var pathToLibs = ['src/vendor/**/*.js', 'src/vendor/**/*.css'];
 
+gulp.task('default', ['dev'], function () {
+});
+
 gulp.task('dev', function () {
         runSequence(
             'cleanDevFolder',

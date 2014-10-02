@@ -33,7 +33,7 @@ angular.module('search.form', [
         };
     })
 
-    .controller('SearchFormCtrl', function ($scope, formConfig, search) {
+    .controller('SearchFormCtrl', function ($scope, formConfig, dataType, search) {
         $scope.search = search;
         $scope.form = {
             fields: [
@@ -48,6 +48,26 @@ angular.module('search.form', [
                     type: 'text',
                     label: 'Player',
                     placeholder: 'Player ID'
+                },
+                {
+                    key: 'type',
+                    type: 'text',
+                    label: 'Type',
+                    placeholder: 'Event type',
+                    watch: {
+                        expression: function (field) {
+                            return dataType.selected === 'event';
+                        },
+                        listener: function (field, _new) {
+                            field.hide = !_new;
+                        }
+                    }
+                },
+                {
+                    key: 'sections',
+                    type: 'text',
+                    label: 'Section',
+                    placeholder: 'level1.section1.*'
                 }
             ],
             options: {
