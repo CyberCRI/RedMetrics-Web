@@ -27,6 +27,8 @@ angular.module('search', [
                 var dateFilter = $filter('date');
                 params.after = dateFilter(params.after, DATE_FORMAT);
                 params.before = dateFilter(params.before, DATE_FORMAT);
+                params.afterUserTime = dateFilter(params.afterUserTime, DATE_FORMAT);
+                params.beforeUserTime = dateFilter(params.beforeUserTime, DATE_FORMAT);
                 backend.search(params)
                     .success(function (searchResults) {
                         service.results = searchResults;
