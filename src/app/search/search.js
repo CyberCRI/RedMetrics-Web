@@ -3,15 +3,31 @@ angular.module('search', [
     'search.result'
 ])
 
-    .factory('search', function (backend, dataType) {
+    .constant('DATE_FORMAT', "EEE, dd MMM yyyy HH:mm:ss 'UTC'")
+
+    .factory('search', function ($filter, backend, dataType, DATE_FORMAT) {
         var service = {};
 
         service.dataType = '';
-        service.params = {};
+
+        var now = new Date();
+        var millisecondsInWeek = 1000 * 60 * 60 * 24 * 7;
+        var lastWeekInMilliseconds = now.getTime() - millisecondsInWeek;
+        var aWeekAgo = new Date();
+        aWeekAgo.setTime(lastWeekInMilliseconds);
+        service.params = {
+            after: aWeekAgo,
+            before: now
+        };
+
         service.results = {};
         service.query = function () {
             if (service.isValid()) {
-                backend.search(service.params)
+                var params = angular.copy(service.params);
+                var dateFilter = $filter('date');
+                params.after = dateFilter(params.after, DATE_FORMAT);
+                params.before = dateFilter(params.before, DATE_FORMAT);
+                backend.search(params)
                     .success(function (searchResults) {
                         service.results = searchResults;
                     });

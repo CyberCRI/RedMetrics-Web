@@ -7,7 +7,7 @@ angular.module('search.form', [
     })
 
     .value('dataType', {
-        selected: ''
+        selected: 'event'
     })
 
     .directive('typeSelector', function () {
@@ -55,7 +55,7 @@ angular.module('search.form', [
                     label: 'Type',
                     placeholder: 'Event type',
                     watch: {
-                        expression: function (field) {
+                        expression: function () {
                             return dataType.selected === 'event';
                         },
                         listener: function (field, _new) {
