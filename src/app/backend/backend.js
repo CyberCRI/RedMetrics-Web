@@ -7,7 +7,26 @@ angular.module('backend', [])
         var service = {};
 
         service.loadGames = function () {
-            return $http.get(SERVER_URL + 'game/');
+            $http.get(SERVER_URL + 'game/')
+                .success(pushGamesToForm);
+        };
+
+        var pushGamesToForm = function (games) {
+            angular.forEach(games, function (game) {
+                formConfig.selectableGames.push({name: game.name, value: game.id });
+            });
+        };
+
+        service.loadGameVersions = function (gameId) {
+            if (!gameId) return;
+            return $http.get(SERVER_URL + 'game/' + gameId + '/versions')
+                .success(pushGameVersionsToForm);
+        };
+
+        var pushGameVersionsToForm = function (gameVersions) {
+            angular.forEach(gameVersions, function (gameVersion) {
+                formConfig.selectableGameVersions.push({name: gameVersion.id, value: gameVersion.id });
+            });
         };
 
         service.search = function (params) {

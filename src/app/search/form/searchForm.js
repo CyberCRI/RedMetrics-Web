@@ -3,7 +3,8 @@ angular.module('search.form', [
 ])
 
     .value('formConfig', {
-        selectableGames: []
+        selectableGames: [],
+        selectableGameVersions: []
     })
 
     .value('dataType', {
@@ -33,15 +34,32 @@ angular.module('search.form', [
         };
     })
 
-    .controller('SearchFormCtrl', function ($scope, formConfig, dataType, search) {
+    .controller('SearchFormCtrl', function ($scope, formConfig, dataType, search, backend) {
         $scope.search = search;
+        $scope.$watch('search.params.game', function () {
+            backend.loadGameVersions(search.params.game);
+        });
         $scope.form = {
             fields: [
                 {
-                    "key": "game",
-                    "type": "select",
-                    "label": "Game",
-                    "options": formConfig.selectableGames
+                    key: "game",
+                    type: "select",
+                    label: "Game",
+                    options: formConfig.selectableGames
+                },
+                {
+                    key: "gameVersion",
+                    type: "select",
+                    label: "Game Version",
+                    options: formConfig.selectableGameVersions,
+                    watch: {
+                        expression: function () {
+                            return search.params.game !== undefined;
+                        },
+                        listener: function (field, _new) {
+                            field.hide = !_new;
+                        }
+                    }
                 },
                 {
                     key: 'player',
@@ -76,11 +94,6 @@ angular.module('search.form', [
         };
     })
 
-    .run(function (backend, formConfig) {
-        backend.loadGames()
-            .success(function (games) {
-                angular.forEach(games, function (game) {
-                    formConfig.selectableGames.push({name: game.name, value: game.id });
-                });
-            });
+    .run(function (backend) {
+        backend.loadGames();
     });
