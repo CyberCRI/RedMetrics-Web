@@ -17,7 +17,10 @@ var gulp = require('gulp'),
     minifyCss = require('gulp-minify-css'),
     minifyHtml = require('gulp-minify-html'),
     rev = require('gulp-rev'),
-    templateCache = require('gulp-angular-templatecache');
+    templateCache = require('gulp-angular-templatecache')
+    rsync = require('rsyncwrapper').rsync;
+
+
 
 var livereloadport = 35729,
     serverport = 5000;
@@ -144,6 +147,24 @@ gulp.task('startProdServer', function () {
     });
     server.listen(serverport);
 });
+
+/////////////////////////////////////
+///////////// Deployment ///////////
+///////////////////////////////////
+
+
+    gulp.task('deploy', function() {
+      rsync({
+        ssh: true,
+        src: './prod/',
+        dest: 'cridev@cybermongo.unige.ch:redmetrics-client',
+        recursive: true,
+        syncDest: true,
+        args: ['--verbose']
+      }, function(error, stdout, stderr, cmd) {
+          gutil.log(stdout);
+      });
+    });
 
 
 /////////////////////////////////////

@@ -23,6 +23,7 @@
         "gulp-copy": "*",
         "gulp-uglify": "*",
         "gulp-rev": "*",
-        "gulp-angular-templatecache": "*"
+        "gulp-angular-templatecache": "*",
+        "rsyncwrapper":"*"
     }
 }
