@@ -1,7 +1,7 @@
 angular.module('backend', [])
 
-    .constant('SERVER_URL', 'http://localhost:4567/v1/')
-//    .constant('SERVER_URL', 'http://redmetrics.redwire.io/v1/')
+//    .constant('SERVER_URL', 'http://localhost:4567/')
+    .constant('SERVER_URL', 'http://api.redmetrics.io/v1/')
 
     .factory('backend', function ($http, SERVER_URL, formConfig, dataType) {
         var service = {};

@@ -21,6 +21,7 @@
         "gulp-minify-css": "*",
         "gulp-minify-html": "*",
         "gulp-copy": "*",
+        "gulp-run": "*",
         "gulp-uglify": "*",
         "gulp-rev": "*",
         "gulp-angular-templatecache": "*",

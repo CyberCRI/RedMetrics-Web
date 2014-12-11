@@ -17,8 +17,9 @@ var gulp = require('gulp'),
     minifyCss = require('gulp-minify-css'),
     minifyHtml = require('gulp-minify-html'),
     rev = require('gulp-rev'),
-    templateCache = require('gulp-angular-templatecache')
-    rsync = require('rsyncwrapper').rsync;
+    templateCache = require('gulp-angular-templatecache'),
+    rsync = require('rsyncwrapper').rsync,
+    run = require('gulp-run');
 
 
 
@@ -136,7 +137,7 @@ gulp.task('buildProd', function () {
             html: [minifyHtml({empty: true})],
             js: [annotate(), uglify(), rev()]
         }))
-        .pipe(gulp.dest('prod'))
+        .pipe(gulp.dest('prod'));
 });
 
 gulp.task('startProdServer', function () {
@@ -162,6 +163,7 @@ gulp.task('startProdServer', function () {
         syncDest: true,
         args: ['--verbose']
       }, function(error, stdout, stderr, cmd) {
+          gutil.log(stderr);
           gutil.log(stdout);
       });
     });
