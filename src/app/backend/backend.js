@@ -1,7 +1,7 @@
-angular.module('backend', [])
 
-//    .constant('SERVER_URL', 'http://localhost:4567/')
-    .constant('SERVER_URL', 'http://api.redmetrics.io/v1/')
+angular.module('backend', [
+    'backend.config'
+])
 
     .factory('backend', function ($http, SERVER_URL, formConfig, dataType) {
         var service = {};
@@ -12,6 +12,9 @@ angular.module('backend', [])
         };
 
         var pushGamesToForm = function (games) {
+            while(formConfig.selectableGames.length > 0) {
+                formConfig.selectableGames.pop();
+            }
             angular.forEach(games, function (game) {
                 formConfig.selectableGames.push({name: game.name, value: game.id });
             });
@@ -24,6 +27,9 @@ angular.module('backend', [])
         };
 
         var pushGameVersionsToForm = function (gameVersions) {
+            while(formConfig.selectableGameVersions.length > 0) {
+                formConfig.selectableGameVersions.pop();
+            }
             angular.forEach(gameVersions, function (gameVersion) {
                 formConfig.selectableGameVersions.push({name: gameVersion.id, value: gameVersion.id });
             });
