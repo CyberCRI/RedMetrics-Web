@@ -20,7 +20,7 @@ angular.module('search', [
             before: now
         };
 
-        service.results = {};
+        service.results = [];
         service.query = function () {
             if (service.isValid()) {
                 var params = angular.copy(service.params);

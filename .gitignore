@@ -1,6 +1,10 @@
 # IDE config files
 .idea
 
+# OS crap
+.DS_Store
+
+# Generated or downloaded files
 /dev/
 /prod/
 /node_modules/
