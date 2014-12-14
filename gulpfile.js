@@ -154,106 +154,16 @@ gulp.task('startProdServer', function () {
 ///////////////////////////////////
 
 
-    gulp.task('deploy', function() {
-      rsync({
-        ssh: true,
-        src: './prod/',
-        dest: 'cridev@cybermongo.unige.ch:redmetrics-client',
-        recursive: true,
-        syncDest: true,
-        args: ['--verbose']
-      }, function(error, stdout, stderr, cmd) {
-          gutil.log(stderr);
-          gutil.log(stdout);
-      });
-    });
-
-
-/////////////////////////////////////
-/////////////// OLD STUFF //////////
-///////////////////////////////////
-
-
-gulp.task('watch', function () {
-    gulp.watch(pathToJsSource, ['js']);
-//    gulp.watch([ './app/**/**/*.scss', './app/styles/main.scss'], [
-//        'sass'
-//    ]);
-//    gulp.watch('./app/**/*.js', [
-//        'lint'
-//    ])
-});
-
-gulp.task('js', function () {
-    gulp.src([pathToJsSource, 'src/index.html'])
-        .pipe(usemin({
-//            css: [minifyCss()],
-//            html: [minifyHtml({empty: true})],
-            js: [annotate()]
-        }))
-        .pipe(gulp.dest('dist'))
-        .pipe(refresh(lrserver));
-});
-
-gulp.task('lib', function () {
-    gulp.src('src/index.html')
-        .pipe(usemin({
-//            css: [minifyCss()],
-//            html: [minifyHtml({empty: true})],
-            js: [annotate()]
-        }))
-        .pipe(gulp.dest('dist'));
-});
-
-gulp.task('template', function () {
-    gulp.src('dist/index.html')
-        .pipe(inlineAngularTemplates({
-            base: 'app/modules/**/*.html'
-        }))
-        .pipe(gulp.dest('dist'));
-});
-
-//gulp.task('lint', function () {
-//    gulp.src('./app/modules/**/*.js')
-//        .pipe(refresh(lrserver))
-//        .pipe(jshint())
-//        .pipe(jshint.reporter('default'));
-//});
-
-//gulp.task('sass', function () {
-//    gulp.src('./app/styles/main.scss')
-//        .pipe(refresh(lrserver))
-//        .pipe(sass())
-//        .pipe(gulp.dest('./app/styles'));
-//});
-
-//gulp.task('serveprod', function () {
-//    var server = express();
-//    server.use(livereload({port: livereloadport}));
-//    server.use(express.static('./dist'));
-//    server.all('/*', function (req, res) {
-//        res.sendFile('index.html', { root: 'dist' });
-//    });
-//    server.listen(serverport);
-//    lrserver.listen(livereloadport);
-//});
-
-//build tasks
-
-gulp.task('temp', function () {
-    gulp.run('grunt-inline_angular_templates')
-});
-
-gulp.task('build', function () {
-    gulp.src('./app/index.html')
-        .pipe(usemin({
-            css: [minifyCss()],
-            html: [minifyHtml({empty: true})],
-            js: [annotate(), uglify(), rev()]
-        }))
-        .pipe(gulp.dest('./dist'))
-//    gulp.src('./app/modules/**/*.tpl.html')
-//        .pipe(minifyHtml())
-//        .pipe(gulp.dist('./temp'));
-//    gulp.src('./app/modules/**/*.html')
+gulp.task('deploy', function() {
+  rsync({
+    ssh: true,
+    src: './prod/',
+    dest: 'cridev@cybermongo.unige.ch:redmetrics-client',
+    recursive: true,
+    syncDest: true,
+    args: ['--verbose']
+  }, function(error, stdout, stderr, cmd) {
+      gutil.log(stderr);
+      gutil.log(stdout);
+  });
 });
