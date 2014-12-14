@@ -1,3 +1,6 @@
+# Config file
+src/app/backend/config.js
+
 # IDE config files
 .idea
 
