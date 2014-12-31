@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="vendor/angular-material/angular-material.css"/>
     <!-- endbuild -->
 </head>
-<body ng-app="app" layout="horizontal">
+<body ng-app="app" layout="vertical">
 <!--[if lt IE 10]>
       <p class="alert alert-warnning">For better user experience,please use one of these bowers :
     <a href="http://www.google.com/chrome/" target="_blank">Google Chrome</a>
@@ -28,30 +28,38 @@
       </p>
     <![endif]-->
 
-<material-sidenav layout="vertical" class="material-whiteframe-z2">
+<!-- GitHub Ribbon -->
+<a href="https://github.com/CyberCRI/RedMetrics">
+    <img style="position: absolute; top: 0; right: 0; border: 0; z-index: 10;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png">
+</a>
 
-    <material-toolbar class="material-theme-light">
-        <div class="material-toolbar-tools">
-            <span class="material-flex">Search Form</span>
-        </div>
-    </material-toolbar>
+<material-toolbar class="material-theme-light">
+    <div class="material-toolbar-tools" layout-align="center">
+        <span class="material-flex">RedMetrics - Open Source Game Analytics</span>
+    </div>
+</material-toolbar>
 
-    <material-content class="material-content-padding" flex>
-        <type-selector></type-selector>
-        <search-form></search-form>
-    </material-content>
-</material-sidenav>
+<material-content layout="horizontal">
+    <material-sidenav layout="vertical" class="material-whiteframe-z2">
+        <material-toolbar>
+            <div class="material-toolbar-tools">
+                <span class="material-flex">Search</span>
+            </div>
+        </material-toolbar>
 
-<div layout="vertical" flex>
-    <material-toolbar class="material-theme-light">
-        <div class="material-toolbar-tools">
-            <span class="material-flex">RedMetrics Client</span>
-        </div>
-    </material-toolbar>
-    <material-content class="material-content-padding" flex>
-        <search-result></search-result>
-    </material-content>
-</div>
+        <material-content class="material-content-padding" flex>
+            <type-selector></type-selector>
+            <search-form></search-form>
+        </material-content>
+    </material-sidenav>
+
+    <div layout="vertical" flex>
+        <material-content class="material-content-padding" flex>
+            <search-result></search-result>
+        </material-content>
+    </div>
+</material-content>
+
 <!--<section ui-view="main" layout="vertical" layout-fill></section>-->
 
 <!-- build:js scripts/scripts.js -->
