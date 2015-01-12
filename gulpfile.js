@@ -24,7 +24,7 @@ var gulp = require('gulp'),
 
 
 var livereloadport = 35729,
-    serverport = 5000;
+    serverport = 5005;
 
 
 // DEV SERVER
