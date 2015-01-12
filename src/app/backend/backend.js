@@ -39,5 +39,24 @@ angular.module('backend', [
             return $http.get(SERVER_URL + dataType.selected, {params: params});
         };
 
+        service.createGame = function (name, author, credits) {
+            var data = {
+                name: name,
+                author: author,
+                credits: credits
+            };
+            return $http.post(SERVER_URL + "game/", data)
+                .success(function(data, status) {
+                    console.log("Created game", data, status);
+                }).
+                error(function(data, status) {
+                    console.error("Can't create game", data, status);
+                });
+        };
+
+        service.createGameVersion = function(gameId) {
+
+        };
+
         return service;
     });
