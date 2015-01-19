@@ -1,0 +1,23 @@
+<h1>Create Game Version</h1>
+
+<form name="form">
+	<label for="gameIdInput">Game ID (required)</label>
+	<input id="gameIdInput" type="text" ng-model="gameVersionMeta.gameId" required>
+
+	<label for="gameDescriptionInput">Description</label>
+	<textarea id="gameDescriptionInput" ng-model="gameMeta.description" placeholder="Version x.y..."></textarea>
+
+	<input type="submit" ng-click="createGameVersion()" value="Create game"> 
+</form>
+
+<p class="error" ng-show="error">Error: {{ error }}</p>
+
+<div ng-show="results">
+	<h2>Results</h2>
+
+	<p>You created a new game version.</p>
+
+	<ul>
+		<li>ID: <pre>{{ results.id }}</pre></li>
+	</ul>
+</div>

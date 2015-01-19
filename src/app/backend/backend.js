@@ -44,11 +44,15 @@ angular.module('backend', [
                 name: name,
                 description: description
             };
-            return $http.post(SERVER_URL + "game/", data);
+            return $http.post(SERVER_URL + "game", data);
         };
 
-        service.createGameVersion = function(gameId) {
-
+        service.createGameVersion = function(gameId, description) {
+            var data = {
+                game: gameId,
+                description: description
+            };
+            return $http.post(SERVER_URL + "gameVersion", data);
         };
 
         return service;
