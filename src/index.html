@@ -42,14 +42,13 @@
 
 <material-content layout="horizontal">
     <material-sidenav layout="vertical" class="material-whiteframe-z2">
-        <material-toolbar>
-            <div class="material-toolbar-tools">
-                <span class="material-flex">Search</span>
-            </div>
-        </material-toolbar>
-
         <material-content class="material-content-padding" flex>
-            <a href="">Create game</a>
+            <h3>Admin</h3>
+            <div>
+                <a ui-sref="adminGame">Create game</a>
+            </div>
+
+            <h3>Search</h3>
             <type-selector></type-selector>
             <search-form></search-form>
         </material-content>

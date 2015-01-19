@@ -4,7 +4,8 @@ angular.module('app', [
     'formly',
     'header',
     'search',
-    'backend'
+    'backend',
+    'admin'
 ])
 
     .config(function ($locationProvider) {
@@ -14,6 +15,12 @@ angular.module('app', [
         $stateProvider.state("home", {
             url: "/",
             templateUrl: "home/home.html"
+        });
+
+        $stateProvider.state("adminGame", {
+            url: "/admin/game",
+            templateUrl: "admin/game.html",
+            controller: "AdminCtrl"
         });
 
         $stateProvider.state("search", {
