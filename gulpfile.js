@@ -36,8 +36,9 @@ devServer.all('/*', function (req, res) {
 });
 
 // PATHS
+var pathToConfig = 'src/app/backend/config.js';
 var pathToIndexFile = 'src/index.html';
-var pathToJsSource = 'src/app/**/*.js';
+var pathToJsSource = ['src/app/**/*.js', '!'+pathToConfig];
 var pathToTemplates = 'src/app/**/*.html';
 var pathToLibs = ['src/vendor/**/*.js', 'src/vendor/**/*.css'];
 var pathToAssets = 'src/assets/**';
@@ -56,6 +57,7 @@ gulp.task('dev', function () {
 gulp.task('buildDev', [
     'copyLibs',
     'copyAssets',
+    'copyConfig',
     'buildJs',
     'copyIndex',
     'cacheTemplates'
@@ -74,6 +76,11 @@ gulp.task('copyLibs', function () {
 gulp.task('copyAssets', function () {
     gulp.src(pathToAssets)
         .pipe(copy('dev', {prefix: 1}));
+});
+
+gulp.task('copyConfig', function () {
+    gulp.src(pathToConfig)
+        .pipe(gulp.dest('dev'));
 });
 
 gulp.task('buildJs', function () {
@@ -100,7 +107,7 @@ gulp.task('cacheTemplates', function () {
 gulp.task('startDevServer', function () {
     devServer.listen(serverport);
     lrserver.listen(livereloadport);
-    console.log("Listening on port " + serverport);
+    console.log("Dev server listening on port " + serverport);
 });
 
 gulp.task('watchSource', function () {
@@ -126,6 +133,8 @@ gulp.task('prod', function () {
             'cleanProdFolder',
             'buildDev',
             'buildProd',
+            'copyAssetsToProd',
+            'copyConfigToProd',
             'startProdServer'
         );
     }
@@ -145,6 +154,16 @@ gulp.task('buildProd', function () {
         .pipe(gulp.dest('prod'));
 });
 
+gulp.task('copyAssetsToProd', function () {
+    gulp.src(pathToAssets)
+        .pipe(copy('prod', {prefix: 1}));
+});
+
+gulp.task('copyConfigToProd', function () {
+    gulp.src(pathToConfig)
+        .pipe(gulp.dest('prod'));
+});
+
 gulp.task('startProdServer', function () {
     var server = express();
     server.use(express.static('./prod'));
@@ -152,6 +171,7 @@ gulp.task('startProdServer', function () {
         res.sendFile('index.html', { root: 'prod' });
     });
     server.listen(serverport);
+    console.log("Prod server listening on port " + serverport);
 });
 
 /////////////////////////////////////
@@ -164,6 +184,7 @@ gulp.task('deploy', function() {
     ssh: true,
     src: './prod/',
     dest: 'cridev@cybermongo.unige.ch:redmetrics-client',
+    exclude: ['config.js'],
     recursive: true,
     syncDest: true,
     args: ['--verbose']

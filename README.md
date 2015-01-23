@@ -16,4 +16,3 @@ To develop locally:
 You will also need to configure RedMetrics-client to target your RedMetrics instance. Copy the sample configuration file [/src/app/backend/config.js.sample](https://github.com/CyberCRI/RedMetrics-client/blob/master/src/app/backend/config.js.sample) to `/src/app/backend/config.js`. 
 
 You can then modify `/src/app/backend/config.js` to connect to the correct instance of the server. 
->>>>>>> ea201a6cdc98b3534adeaba47e4f0c0b35cc1ab0
