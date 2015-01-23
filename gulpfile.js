@@ -100,6 +100,7 @@ gulp.task('cacheTemplates', function () {
 gulp.task('startDevServer', function () {
     devServer.listen(serverport);
     lrserver.listen(livereloadport);
+    console.log("Listening on port " + serverport);
 });
 
 gulp.task('watchSource', function () {
