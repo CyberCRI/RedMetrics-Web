@@ -1,5 +1,4 @@
-RedMetrics-client
-=================
+# RedMetrics-client
 
 Client-side web app that provides a UI for querying data stored in a [RedMetrics](https://github.com/CyberCRI/RedMetrics) server.
 
@@ -11,3 +10,10 @@ To develop locally:
   3. Configure RedMetrics-client to target a RedMetrics instance. Copy the file [/src/app/backend/config.js.sample](https://github.com/CyberCRI/RedMetrics-client/blob/master/src/app/backend/config.js.sample) to `/src/app/backend/config.js` and modify it to target the host and port of RedMetrics.
   4. Run `gulp dev` to start up a development server that updates as soon as files are changed. You can see the result at [http://localhost:5005](http://localhost:5005).
   5. When ready to deploy, use `gulp prod` to test the production server, using optimized and minified code.
+
+## Configuration
+
+You will also need to configure RedMetrics-client to target your RedMetrics instance. Copy the sample configuration file [/src/app/backend/config.js.sample](https://github.com/CyberCRI/RedMetrics-client/blob/master/src/app/backend/config.js.sample) to `/src/app/backend/config.js`. 
+
+You can then modify `/src/app/backend/config.js` to connect to the correct instance of the server. 
+>>>>>>> ea201a6cdc98b3534adeaba47e4f0c0b35cc1ab0
