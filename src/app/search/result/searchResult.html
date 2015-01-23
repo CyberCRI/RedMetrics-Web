@@ -1,10 +1,29 @@
 <div ng-show="ctrl.search.results.length > 0">
 	<h3>Results</h3>
-	<div ng-repeat="result in ctrl.search.results">
-	    {{ result | json }}
-	</div>
+	<table>
+		<tr>
+			<th>Server Time</th>
+			<th>User Time</th>
+			<th>Game Version</th>
+			<th>Player</th>
+			<th>Type</th>
+			<th>Coordinates</th>
+			<th>Sections</th>
+			<th>Custom Data</th>
+		</tr>
+		<tr ng-repeat="result in ctrl.search.results">
+			<td>{{ result.serverTime }}</td>
+			<td>{{ result.userTime }}</td>
+			<td>{{ result.gameVersion }}</td>
+			<td>{{ result.player }}</td>
+			<td>{{ result.type }}</td>
+			<td>{{ result.coordinates }}</td>
+			<td>{{ result.sections }}</td>
+			<td>{{ result.customData }}</td>
+		</tr>
+	</table>
 </div>
 <div ng-show="ctrl.search.results.length == 0">
-    <h3>No results</h3>
-    <p>User the form on the left to change the search parameters and click the "Search" button.</p>
+	<h3>No results</h3>
+	<p>User the form on the left to change the search parameters and click the "Search" button.</p>
 </div>

@@ -22,9 +22,9 @@ var gulp = require('gulp'),
     run = require('gulp-run');
 
 
-
+// PORT NUMBERS
 var livereloadport = 35729,
-    serverport = 5000;
+    serverport = 5005;
 
 
 // DEV SERVER
@@ -40,23 +40,22 @@ var pathToIndexFile = 'src/index.html';
 var pathToJsSource = 'src/app/**/*.js';
 var pathToTemplates = 'src/app/**/*.html';
 var pathToLibs = ['src/vendor/**/*.js', 'src/vendor/**/*.css'];
+var pathToAssets = 'src/assets/**';
 
 gulp.task('default', ['dev'], function () {
 });
 
 gulp.task('dev', function () {
-        runSequence(
-            'cleanDevFolder',
-            [
-                'buildDev',
-                'startDevServer',
-                'watchSource'
-            ]);
-    }
-);
+    runSequence('cleanDevFolder', [
+        'buildDev',
+        'startDevServer',
+        'watchSource'
+    ]);
+});
 
 gulp.task('buildDev', [
     'copyLibs',
+    'copyAssets',
     'buildJs',
     'copyIndex',
     'cacheTemplates'
@@ -69,6 +68,11 @@ gulp.task('cleanDevFolder', function (cb) {
 
 gulp.task('copyLibs', function () {
     gulp.src(pathToLibs)
+        .pipe(copy('dev', {prefix: 1}));
+});
+
+gulp.task('copyAssets', function () {
+    gulp.src(pathToAssets)
         .pipe(copy('dev', {prefix: 1}));
 });
 
@@ -96,6 +100,7 @@ gulp.task('cacheTemplates', function () {
 gulp.task('startDevServer', function () {
     devServer.listen(serverport);
     lrserver.listen(livereloadport);
+    console.log("Listening on port " + serverport);
 });
 
 gulp.task('watchSource', function () {

@@ -1,0 +1,27 @@
+<h1>Create Game</h1>
+
+<form name="form">
+	<label for="gameNameInput">Name (required)</label>
+	<input id="gameNameInput" type="text" ng-model="gameMeta.name" required>
+
+	<label for="gameDescriptionInput">Description</label>
+	<textarea id="gameDescriptionInput" ng-model="gameMeta.description" placeholder="An incredible game..."></textarea>
+
+	<input type="submit" ng-click="createGame()" value="Create game"> 
+</form>
+
+<p class="error" ng-show="error">Error: {{ error }}</p>
+
+<div ng-show="results">
+	<h2>Results</h2>
+
+	<p>The game was created successfully. Here is the information related to your game:</p>
+
+	<ul>
+		<li>Name: <pre>{{ results.name }}</pre></li>
+		<li>ID: <pre>{{ results.id }}</pre></li>
+		<li>Admin key: <pre>{{ results.adminKey }}</pre></li>
+	</ul>
+		
+	<p>Please hold onto your admin key to modify your game information, but do not share it with others.</p>
+</div>
