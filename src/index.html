@@ -35,7 +35,7 @@
 
 <material-toolbar class="material-theme-light">
     <div class="material-toolbar-tools" layout-align="center">
-        <img src="assets/redMetricsLogo.png">
+        <a ui-sref="home"><img src="assets/redMetricsLogo.png"></a>
         <span class="material-flex">RedMetrics - Open Source Game Analytics</span>
     </div>
 </material-toolbar>
@@ -43,6 +43,8 @@
 <material-content layout="horizontal">
     <material-sidenav layout="vertical" class="material-whiteframe-z2">
         <material-content class="material-content-padding" flex>
+            <a ui-sref="home">About</a>
+
             <h3>Admin</h3>
             <div>
                 <a ui-sref="adminGame">Create game</a>
