@@ -5,7 +5,7 @@ angular.module('search', [
 
     .constant('DATE_FORMAT', "EEE, dd MMM yyyy HH:mm:ss 'UTC'")
 
-    .factory('search', function ($filter, backend, dataType, DATE_FORMAT) {
+    .factory('search', function ($filter, $state, backend, dataType, DATE_FORMAT) {
         var service = {};
 
         service.dataType = '';
@@ -29,10 +29,14 @@ angular.module('search', [
                 params.before = dateFilter(params.before, DATE_FORMAT);
                 params.afterUserTime = dateFilter(params.afterUserTime, DATE_FORMAT);
                 params.beforeUserTime = dateFilter(params.beforeUserTime, DATE_FORMAT);
+
                 backend.search(params)
                     .success(function (searchResults) {
                         service.results = searchResults;
                     });
+
+                // Switch to show search results
+                $state.go('search');
             }
         };
         service.isValid = function () {

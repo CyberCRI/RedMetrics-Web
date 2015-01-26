@@ -1,4 +1,4 @@
-<div ng-show="ctrl.search.results.length > 0">
+<div ng-show="search.results.length > 0">
 	<h3>Results</h3>
 	<table>
 		<tr>
@@ -11,7 +11,7 @@
 			<th>Sections</th>
 			<th>Custom Data</th>
 		</tr>
-		<tr ng-repeat="result in ctrl.search.results">
+		<tr ng-repeat="result in search.results">
 			<td>{{ result.serverTime }}</td>
 			<td>{{ result.userTime }}</td>
 			<td>{{ result.gameVersion }}</td>
@@ -23,7 +23,7 @@
 		</tr>
 	</table>
 </div>
-<div ng-show="ctrl.search.results.length == 0">
+<div ng-show="search.results.length == 0">
 	<h3>No results</h3>
 	<p>User the form on the left to change the search parameters and click the "Search" button.</p>
 </div>

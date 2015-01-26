@@ -32,8 +32,6 @@ angular.module('app', [
         $stateProvider.state("search", {
             url: "/search",
             templateUrl: "search/result/searchResult.html",
-            controller: function (search) {
-                this.search = search;
-            }
+            controller: "SearchResultController"
         });
     });

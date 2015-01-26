@@ -57,6 +57,7 @@ angular.module('search.form', [
                             return search.params.game !== undefined;
                         },
                         listener: function (field, _new) {
+                            // Hide the game version if the game has not been chosen
                             field.hide = !_new;
                         }
                     }
