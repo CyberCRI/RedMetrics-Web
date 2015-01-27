@@ -9,16 +9,7 @@ angular.module('search', [
         var service = {};
 
         service.dataType = '';
-
-        var now = new Date();
-        var millisecondsInWeek = 1000 * 60 * 60 * 24 * 7;
-        var lastWeekInMilliseconds = now.getTime() - millisecondsInWeek;
-        var aWeekAgo = new Date();
-        aWeekAgo.setTime(lastWeekInMilliseconds);
-        service.params = {
-            after: aWeekAgo,
-            before: now
-        };
+        service.params = {};
 
         service.results = [];
         service.query = function () {
