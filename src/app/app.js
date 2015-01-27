@@ -5,7 +5,8 @@ angular.module('app', [
     'header',
     'search',
     'backend',
-    'admin'
+    'admin',
+    'material.components.linearProgress'
 ])
 
     .config(function ($locationProvider) {

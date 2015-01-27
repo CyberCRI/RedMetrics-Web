@@ -1,4 +1,9 @@
-<div ng-show="search.results.length > 0">
+<div ng-show="search.searchInProgress">
+	<p>Searching...</p>
+	<material-linear-progress mode="indeterminate"></material-linear-progress>
+</div>
+
+<div ng-show="!search.searchInProgress && search.results.length > 0">
 	<h3>Results</h3>
 	<table>
 		<tr>
@@ -23,7 +28,7 @@
 		</tr>
 	</table>
 </div>
-<div ng-show="search.results.length == 0">
+<div ng-show="!search.searchInProgress && search.results.length == 0">
 	<h3>No results</h3>
 	<p>User the form on the left to change the search parameters and click the "Search" button.</p>
 </div>
