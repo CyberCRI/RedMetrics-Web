@@ -1,13 +1,13 @@
 <div>
     <formly-form fields="form.fields" result="search.params" options="form.options" ng-submit="search.query()">
-        <label>After</label>
-        <input type="date" ng-model="search.params.after">
-        <label>Before</label>
-        <input type="date" ng-model="search.params.before">
-        <label>After (User time)</label>
-        <input type="date" ng-model="search.params.afterUserTime">
-        <label>Before (User time)</label>
-        <input type="date" ng-model="search.params.beforeUserTime">
+        <label>After (in server time)</label>
+        <input type="datetime-local" ng-model="search.params.after">
+        <label>Before (in server time)</label>
+        <input type="datetime-local" ng-model="search.params.before">
+        <label>After (in user time)</label>
+        <input type="datetime-local" ng-model="search.params.afterUserTime">
+        <label>Before (in user time)</label>
+        <input type="datetime-local" ng-model="search.params.beforeUserTime">
         <button type="submit" ng-disabled="!search.isValid()">Search</button>
     </formly-form>
 </div>
