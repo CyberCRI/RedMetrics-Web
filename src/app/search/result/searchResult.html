@@ -5,6 +5,15 @@
 
 <div ng-show="!search.searchInProgress && search.results.length > 0">
 	<h3>Results</h3>
+
+	<p>Showing page {{ search.pageNumber }} out of {{ search.totalPages }}</p> 
+	<div>
+		<a ng-show="search.linkMap.first" ng-href="{{search.linkMap.first}}">First page</a>
+		<a ng-show="search.linkMap.prev" ng-href="{{search.linkMap.prev}}">Previous page</a>
+		<a ng-show="search.linkMap.next"ng-href="{{search.linkMap.next}}">Next page</a>
+		<a ng-show="search.linkMap.last" ng-href="{{search.linkMap.last}}">Last page</a>
+	</div>
+
 	<table>
 		<tr>
 			<th>Server Time</th>
