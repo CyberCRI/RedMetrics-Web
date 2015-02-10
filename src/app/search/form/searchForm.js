@@ -90,9 +90,6 @@ angular.module('search.form', [
             $scope.params[paramName] = readDateAsIso($scope.params[paramName]);
         });
 
-        $scope.$watch('params.game', function () {
-            backend.loadGameVersions($scope.params.game);
-        });
         $scope.form = {
             fields: [
                 {
@@ -167,6 +164,11 @@ angular.module('search.form', [
                 uniqueFormId: 'searchParamsForm'
             }
         };
+
+        // Load game versions as soon as a game is selected
+        $scope.$watch('params.game', function () {
+            backend.loadGameVersions($scope.params.game);
+        });
     })
 
     .run(function (backend) {
