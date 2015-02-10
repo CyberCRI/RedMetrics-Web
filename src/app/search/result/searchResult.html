@@ -6,12 +6,12 @@
 <div ng-show="!search.searchInProgress && search.results.length > 0">
 	<h3>Results</h3>
 
-	<p>Showing page {{ search.pageNumber }} out of {{ search.totalPages }}</p> 
+	<p>Showing page {{ search.pageNumber }} out of {{ search.pageCount }}</p> 
 	<div>
-		<a ng-show="search.linkMap.first" ng-href="{{search.linkMap.first}}">First page</a>
-		<a ng-show="search.linkMap.prev" ng-href="{{search.linkMap.prev}}">Previous page</a>
-		<a ng-show="search.linkMap.next"ng-href="{{search.linkMap.next}}">Next page</a>
-		<a ng-show="search.linkMap.last" ng-href="{{search.linkMap.last}}">Last page</a>
+		<a ng-show="search.pageNumber > 1" ng-click="goToPage(1)" href="">First page</a>
+		<a ng-show="search.pageNumber > 1" ng-click="goToPage(search.pageNumber - 1)" href="">Previous page</a>
+		<a ng-show="search.pageNumber < search.pageCount" ng-click="goToPage(search.pageNumber + 1)" href="">Next page</a>
+		<a ng-show="search.pageNumber < search.pageCount" ng-click="goToPage(search.pageCount)" href="">Last page</a>
 	</div>
 
 	<table>
