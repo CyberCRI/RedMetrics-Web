@@ -3,9 +3,7 @@ angular.module('search', [
     'search.result'
 ])
 
-    .constant('DATE_FORMAT', "EEE, dd MMM yyyy HH:mm:ss 'UTC'")
-
-    .factory('search', function ($filter, $state, backend, dataType, DATE_FORMAT) {
+    .factory('search', function ($filter, $state, backend, dataType) {
         var service = {};
 
         service.params = {};
@@ -15,6 +13,8 @@ angular.module('search', [
         service.results = [];
         
         function makeLinkMap(linkHeader) {
+            if(!linkHeader) return {};
+
             // Expecting a header like "http://localhost:5050/v1/event/?page=1&perPage=50; rel=next, http://localhost:5050/v1/event/?page=9&perPage=50; rel=last"
             // link.split(",")[0].split(";")[1].trim().split("=")[1]
             var linkMap = {};
@@ -29,14 +29,7 @@ angular.module('search', [
 
         service.query = function () {
             if (service.isValid()) {
-                var params = angular.copy(service.params);
-                var dateFilter = $filter('date');
-                params.after = dateFilter(params.after, DATE_FORMAT);
-                params.before = dateFilter(params.before, DATE_FORMAT);
-                params.afterUserTime = dateFilter(params.afterUserTime, DATE_FORMAT);
-                params.beforeUserTime = dateFilter(params.beforeUserTime, DATE_FORMAT);
-
-                backend.search(params)
+                backend.search(service.params)
                     .success(function (searchResults, status, headers) {
                         service.results = searchResults;
                         service.linkMap = makeLinkMap(headers("link"));
@@ -52,8 +45,6 @@ angular.module('search', [
 
                 // Indicate that we are searching
                 service.searchInProgress = true; 
-                // Switch to show search results
-                $state.go('search');
             }
         };
         service.isValid = function () {

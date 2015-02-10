@@ -34,10 +34,48 @@ angular.module('search.form', [
         };
     })
 
-    .controller('SearchFormCtrl', function ($scope, formConfig, dataType, search, backend) {
-        $scope.search = search;
-        $scope.$watch('search.params.game', function () {
-            backend.loadGameVersions(search.params.game);
+    .controller('SearchFormCtrl', function ($scope, $state, $location, formConfig, dataType, backend) {
+        function formatDate(dateString) {
+            if(!dateString) return null;
+
+            // Read as local date but convert to UTC time
+            var localDate = new Date(dateString);
+            var utcDate = Date.UTC(localDate.getFullYear(), localDate.getMonth(), 
+                localDate.getDate(), localDate.getHours(), localDate.getMinutes(), 
+                localDate.getSeconds(), localDate.getMilliseconds());
+            return new Date(utcDate).toISOString();
+        }
+
+        function getQueryParam(key) {
+            return $location.search().hasOwnProperty(key) ? $location.search()[key] : null;  
+        } 
+
+        $scope.search = function() {
+            var params = angular.copy($scope.params);
+
+            // Copy over the entity type
+            params.entityType = dataType.selected;
+
+            // Format dates in ISO format
+            params.after = formatDate(params.after);
+            params.before = formatDate(params.before);
+            params.afterUserTime = formatDate(params.afterUserTime);
+            params.beforeUserTime = formatDate(params.beforeUserTime);
+
+            // Switching state triggers the search
+            $state.go("search", params, { inherit: false });
+        }
+
+        $scope.params = {
+            game: getQueryParam("game"),
+            gameVersion: getQueryParam("gameVersion"),
+            player: getQueryParam("player"),
+            type: getQueryParam("type"),
+            section: getQueryParam("section")
+        };
+
+        $scope.$watch('params.game', function () {
+            backend.loadGameVersions($scope.params.game);
         });
         $scope.form = {
             fields: [
@@ -54,7 +92,7 @@ angular.module('search.form', [
                     options: formConfig.selectableGameVersions,
                     watch: {
                         expression: function () {
-                            return search.params.game !== undefined;
+                            return $scope.params.game !== undefined;
                         },
                         listener: function (field, _new) {
                             // Hide the game version if the game has not been chosen
@@ -83,7 +121,7 @@ angular.module('search.form', [
                     }
                 },
                 {
-                    key: 'sections',
+                    key: 'section',
                     type: 'text',
                     label: 'Section',
                     placeholder: 'level1.section1.*'

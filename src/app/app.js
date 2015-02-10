@@ -31,7 +31,7 @@ angular.module('app', [
         });
 
         $stateProvider.state("search", {
-            url: "/search",
+            url: "/search?gameVersion&entityType&player&type&section&after&before&afterUserTime&beforeUserTime",
             templateUrl: "search/result/searchResult.html",
             controller: "SearchResultController"
         });

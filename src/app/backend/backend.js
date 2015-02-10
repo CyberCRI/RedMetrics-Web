@@ -3,7 +3,7 @@ angular.module('backend', [
     'backend.config'
 ])
 
-    .factory('backend', function ($http, SERVER_URL, formConfig, dataType) {
+    .factory('backend', function ($http, SERVER_URL, formConfig) {
         var service = {};
 
         service.loadGames = function () {
@@ -36,7 +36,7 @@ angular.module('backend', [
         };
 
         service.search = function (params) {
-            return $http.get(SERVER_URL + dataType.selected, {params: params});
+            return $http.get(SERVER_URL + params.entityType, {params: params});
         };
 
         service.createGame = function (name, description) {
