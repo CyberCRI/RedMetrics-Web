@@ -35,7 +35,11 @@ angular.module('search.form', [
     })
 
     .controller('SearchFormCtrl', function ($scope, $state, $location, formConfig, dataType, backend) {
-        function formatDate(dateString) {
+        PARAMETERS = ["game", "gameVersion", "player", "type", "section", "after", "before", 
+            "afterUserTime", "beforeUserTime"];
+        DATE_PARAMETERS = ["after", "before", "afterUserTime", "beforeUserTime"]
+
+        function formatDateAsIso(dateString) {
             if(!dateString) return null;
 
             // Read as local date but convert to UTC time
@@ -44,6 +48,16 @@ angular.module('search.form', [
                 localDate.getDate(), localDate.getHours(), localDate.getMinutes(), 
                 localDate.getSeconds(), localDate.getMilliseconds());
             return new Date(utcDate).toISOString();
+        }
+
+        function readDateAsIso(dateString) {
+            if(!dateString) return null;
+
+            // Read as utc date but pretend it is a local date
+            var localDate = new Date(dateString);
+            return new Date(localDate.getUTCFullYear(), localDate.getUTCMonth(), 
+                localDate.getUTCDate(), localDate.getUTCHours(), localDate.getUTCMinutes(), 
+                localDate.getUTCSeconds(), localDate.getUTCMilliseconds());
         }
 
         function getQueryParam(key) {
@@ -57,22 +71,24 @@ angular.module('search.form', [
             params.entityType = dataType.selected;
 
             // Format dates in ISO format
-            params.after = formatDate(params.after);
-            params.before = formatDate(params.before);
-            params.afterUserTime = formatDate(params.afterUserTime);
-            params.beforeUserTime = formatDate(params.beforeUserTime);
+            params.after = formatDateAsIso(params.after);
+            params.before = formatDateAsIso(params.before);
+            params.afterUserTime = formatDateAsIso(params.afterUserTime);
+            params.beforeUserTime = formatDateAsIso(params.beforeUserTime);
 
             // Switching state triggers the search
             $state.go("search", params, { inherit: false });
         }
 
-        $scope.params = {
-            game: getQueryParam("game"),
-            gameVersion: getQueryParam("gameVersion"),
-            player: getQueryParam("player"),
-            type: getQueryParam("type"),
-            section: getQueryParam("section")
-        };
+        // Setup the initial parameters with values taken from the query string, if provided
+        $scope.params = {};
+        PARAMETERS.forEach(function(paramName) {
+            $scope.params[paramName] = getQueryParam(paramName);
+        });
+        // Convert date parameters to Date objects in local time
+        DATE_PARAMETERS.forEach(function(paramName) {
+            $scope.params[paramName] = readDateAsIso($scope.params[paramName]);
+        });
 
         $scope.$watch('params.game', function () {
             backend.loadGameVersions($scope.params.game);
@@ -125,6 +141,26 @@ angular.module('search.form', [
                     type: 'text',
                     label: 'Section',
                     placeholder: 'level1.section1.*'
+                },
+                {
+                    key: "after",
+                    type: "datetime-local",
+                    label: "After (in server time)"
+                },
+                {
+                    key: "before",
+                    type: "datetime-local",
+                    label: "Before (in server time)"
+                },
+                {
+                    key: "afterUserTime",
+                    type: "datetime-local",
+                    label: "After (in player time)"
+                },
+                {
+                    key: "beforeUserTime",
+                    type: "datetime-local",
+                    label: "Before (in player time)"
                 }
             ],
             options: {

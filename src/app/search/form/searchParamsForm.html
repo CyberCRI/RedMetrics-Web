@@ -1,13 +1,5 @@
 <div>
     <formly-form fields="form.fields" result="params" options="form.options" ng-submit="search()">
-        <label>After (in server time)</label>
-        <input type="datetime-local" ng-model="params.after">
-        <label>Before (in server time)</label>
-        <input type="datetime-local" ng-model="params.before">
-        <label>After (in user time)</label>
-        <input type="datetime-local" ng-model="params.afterUserTime">
-        <label>Before (in user time)</label>
-        <input type="datetime-local" ng-model="params.beforeUserTime">
         <button type="submit">Search</button>
     </formly-form>
 </div>
