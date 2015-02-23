@@ -36,7 +36,7 @@ angular.module('search.form', [
 
     .controller('SearchFormCtrl', function ($scope, $state, $location, formConfig, dataType, backend) {
         PARAMETERS = ["game", "gameVersion", "player", "type", "section", "after", "before", 
-            "afterUserTime", "beforeUserTime"];
+            "afterUserTime", "beforeUserTime", "perPage"];
         DATE_PARAMETERS = ["after", "before", "afterUserTime", "beforeUserTime"]
 
         function formatDateAsIso(dateString) {
@@ -158,6 +158,11 @@ angular.module('search.form', [
                     key: "beforeUserTime",
                     type: "datetime-local",
                     label: "Before (in player time)"
+                },
+                {
+                    key: "perPage",
+                    type: "text",
+                    label: "Results per page (max 500)"
                 }
             ],
             options: {
