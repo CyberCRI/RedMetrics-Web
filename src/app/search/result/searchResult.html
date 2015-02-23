@@ -6,6 +6,8 @@
 <div ng-show="!search.searchInProgress && search.results.length > 0">
 	<h3>Results</h3>
 
+	<p><a ng-href="{{ csvDownloadUrl }}" class="material-button">Download as CSV</a></p>
+
 	<p>Showing page {{ search.pageNumber }} out of {{ search.pageCount }}</p> 
 	<div>
 		<a ng-show="search.pageNumber > 1" ng-click="goToPage(1)" href="">First page</a>
@@ -36,6 +38,14 @@
 			<td>{{ result.customData }}</td>
 		</tr>
 	</table>
+
+	<p>Showing page {{ search.pageNumber }} out of {{ search.pageCount }}</p> 
+	<div>
+		<a ng-show="search.pageNumber > 1" ng-click="goToPage(1)" href="">First page</a>
+		<a ng-show="search.pageNumber > 1" ng-click="goToPage(search.pageNumber - 1)" href="">Previous page</a>
+		<a ng-show="search.pageNumber < search.pageCount" ng-click="goToPage(search.pageNumber + 1)" href="">Next page</a>
+		<a ng-show="search.pageNumber < search.pageCount" ng-click="goToPage(search.pageCount)" href="">Last page</a>
+	</div>
 </div>
 <div ng-show="!search.searchInProgress && search.results.length == 0">
 	<h3>No results</h3>
