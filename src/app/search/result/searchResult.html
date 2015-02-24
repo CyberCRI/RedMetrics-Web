@@ -10,10 +10,10 @@
 
 	<p>Showing page {{ search.pageNumber }} out of {{ search.pageCount }}</p> 
 	<div>
-		<a ng-show="search.pageNumber > 1" ng-click="goToPage(1)" href="">First page</a>
-		<a ng-show="search.pageNumber > 1" ng-click="goToPage(search.pageNumber - 1)" href="">Previous page</a>
-		<a ng-show="search.pageNumber < search.pageCount" ng-click="goToPage(search.pageNumber + 1)" href="">Next page</a>
-		<a ng-show="search.pageNumber < search.pageCount" ng-click="goToPage(search.pageCount)" href="">Last page</a>
+		<button ng-disabled="search.pageNumber <= 1" ng-click="goToPage(1)" href="">First page</button>
+		<button ng-disabled="search.pageNumber <= 1" ng-click="goToPage(search.pageNumber - 1)" href="">Previous page</button>
+		<button ng-disabled="search.pageNumber >= search.pageCount" ng-click="goToPage(search.pageNumber + 1)" href="">Next page</button>
+		<button ng-disabled="search.pageNumber >= search.pageCount" ng-click="goToPage(search.pageCount)" href="">Last page</button>
 	</div>
 
 	<p>{{ search.results.length }} results:</p> 
@@ -43,10 +43,10 @@
 
 	<p>Showing page {{ search.pageNumber }} out of {{ search.pageCount }}</p> 
 	<div>
-		<a ng-show="search.pageNumber > 1" ng-click="goToPage(1)" href="">First page</a>
-		<a ng-show="search.pageNumber > 1" ng-click="goToPage(search.pageNumber - 1)" href="">Previous page</a>
-		<a ng-show="search.pageNumber < search.pageCount" ng-click="goToPage(search.pageNumber + 1)" href="">Next page</a>
-		<a ng-show="search.pageNumber < search.pageCount" ng-click="goToPage(search.pageCount)" href="">Last page</a>
+		<button ng-disabled="search.pageNumber <= 1" ng-click="goToPage(1)" href="">First page</button>
+		<button ng-disabled="search.pageNumber <= 1" ng-click="goToPage(search.pageNumber - 1)" href="">Previous page</button>
+		<button ng-disabled="search.pageNumber >= search.pageCount" ng-click="goToPage(search.pageNumber + 1)" href="">Next page</button>
+		<button ng-disabled="search.pageNumber >= search.pageCount" ng-click="goToPage(search.pageCount)" href="">Last page</button>
 	</div>
 </div>
 <div ng-show="!search.searchInProgress && search.results.length == 0">
