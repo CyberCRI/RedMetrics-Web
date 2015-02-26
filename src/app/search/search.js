@@ -3,9 +3,7 @@ angular.module('search', [
     'search.result'
 ])
 
-    .constant('DATE_FORMAT', "EEE, dd MMM yyyy HH:mm:ss 'UTC'")
-
-    .factory('search', function ($filter, $state, backend, dataType, DATE_FORMAT) {
+    .factory('search', function ($filter, $state, backend, dataType) {
         var service = {};
 
         service.params = {};
@@ -16,16 +14,11 @@ angular.module('search', [
         
         service.query = function () {
             if (service.isValid()) {
-                var params = angular.copy(service.params);
-                var dateFilter = $filter('date');
-                params.after = dateFilter(params.after, DATE_FORMAT);
-                params.before = dateFilter(params.before, DATE_FORMAT);
-                params.afterUserTime = dateFilter(params.afterUserTime, DATE_FORMAT);
-                params.beforeUserTime = dateFilter(params.beforeUserTime, DATE_FORMAT);
-
-                backend.search(params)
-                    .success(function (searchResults) {
+                backend.search(service.params)
+                    .success(function (searchResults, status, headers) {
                         service.results = searchResults;
+                        service.pageNumber = parseInt(headers("X-Page-Number")); 
+                        service.pageCount = parseInt(headers("X-Page-Count"));
                     })
                     .error(function(data, status) { 
                         service.results = [];
@@ -36,8 +29,6 @@ angular.module('search', [
 
                 // Indicate that we are searching
                 service.searchInProgress = true; 
-                // Switch to show search results
-                $state.go('search');
             }
         };
         service.isValid = function () {

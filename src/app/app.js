@@ -31,8 +31,14 @@ angular.module('app', [
         });
 
         $stateProvider.state("search", {
-            url: "/search",
+            url: "/search?page&perPage&game&gameVersion&entityType&player&type&section&after&before&afterUserTime&beforeUserTime",
             templateUrl: "search/result/searchResult.html",
             controller: "SearchResultController"
+        });
+    })
+    // Setup a input template for datetimes (copied from formly.vanilla and adapter for dates)
+    .config(function(formlyConfigProvider) {
+        formlyConfigProvider.setTemplate({
+            "datetime-local": "<div><label for={{id}}>{{options.label || 'Text'}} {{options.required ? '*' : ''}}</label><input type=datetime-local id={{id}} formly-dynamic-name=options.key formly-custom-validation=options.validators placeholder={{options.placeholder}} aria-describedby={{id}}_description ng-required=options.required ng-disabled=options.disabled ng-model=\"result[options.key || index]\"><p id={{id}}_description ng-if=options.description>{{options.description}}</p></div>"
         });
     });

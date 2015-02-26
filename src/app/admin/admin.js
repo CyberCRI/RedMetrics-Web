@@ -12,7 +12,7 @@ angular.module('admin', [])
             $scope.results = {};
             $scope.error = null;
 
-            var future = backend.createGame($scope.gameMeta.name, $scope.gameMeta.description);
+            var future = backend.createGame($scope.gameMeta.name, $scope.gameMeta.author, $scope.gameMeta.description);
             future.success(function(data) {
                 $scope.results = data;
             });
@@ -24,6 +24,7 @@ angular.module('admin', [])
     .controller('AdminGameVersionCtrl', function ($scope, backend) {
         $scope.gameVersionMeta = {
             gameId: "",
+            name: "",
             description: ""
         };
         $scope.error = null;
@@ -34,7 +35,7 @@ angular.module('admin', [])
             $scope.results = {};
             $scope.error = null;
 
-            var future = backend.createGameVersion($scope.gameVersionMeta.gameId, $scope.gameVersionMeta.description);
+            var future = backend.createGameVersion($scope.gameVersionMeta.gameId, $scope.gameVersionMeta.name, $scope.gameVersionMeta.description);
             future.success(function(data) {
                 $scope.results = data;
             });

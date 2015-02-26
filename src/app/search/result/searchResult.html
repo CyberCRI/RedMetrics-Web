@@ -5,6 +5,19 @@
 
 <div ng-show="!search.searchInProgress && search.results.length > 0">
 	<h3>Results</h3>
+
+	<p><a ng-href="{{ csvDownloadUrl }}">Download page as CSV</a></p>
+
+	<p>Showing page {{ search.pageNumber }} out of {{ search.pageCount }}</p> 
+	<div>
+		<button ng-disabled="search.pageNumber <= 1" ng-click="goToPage(1)" href="">First page</button>
+		<button ng-disabled="search.pageNumber <= 1" ng-click="goToPage(search.pageNumber - 1)" href="">Previous page</button>
+		<button ng-disabled="search.pageNumber >= search.pageCount" ng-click="goToPage(search.pageNumber + 1)" href="">Next page</button>
+		<button ng-disabled="search.pageNumber >= search.pageCount" ng-click="goToPage(search.pageCount)" href="">Last page</button>
+	</div>
+
+	<p>{{ search.results.length }} results:</p> 
+
 	<table>
 		<tr>
 			<th>Server Time</th>
@@ -27,6 +40,14 @@
 			<td>{{ result.customData }}</td>
 		</tr>
 	</table>
+
+	<p>Showing page {{ search.pageNumber }} out of {{ search.pageCount }}</p> 
+	<div>
+		<button ng-disabled="search.pageNumber <= 1" ng-click="goToPage(1)" href="">First page</button>
+		<button ng-disabled="search.pageNumber <= 1" ng-click="goToPage(search.pageNumber - 1)" href="">Previous page</button>
+		<button ng-disabled="search.pageNumber >= search.pageCount" ng-click="goToPage(search.pageNumber + 1)" href="">Next page</button>
+		<button ng-disabled="search.pageNumber >= search.pageCount" ng-click="goToPage(search.pageCount)" href="">Last page</button>
+	</div>
 </div>
 <div ng-show="!search.searchInProgress && search.results.length == 0">
 	<h3>No results</h3>
