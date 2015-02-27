@@ -7,8 +7,23 @@ angular.module('backend', [
         var service = {};
 
         service.loadGames = function () {
-            $http.get(SERVER_URL + 'game/')
-                .success(pushGamesToForm);
+            var games = [];
+
+            var onPageLoaded = function(results, status, headers) {
+                // Add games to the local list
+                games = games.concat(results);
+
+                // Get the pagination info
+                var pageNumber = parseInt(headers("X-Page-Number")); 
+                var pageCount = parseInt(headers("X-Page-Count"));
+
+                // If we are done, write out the games to the form
+                if(pageNumber == pageCount) return pushGamesToForm(games);
+                // Otherwise request another page
+                else return $http.get(SERVER_URL + "game?page=" + (pageNumber + 1)).success(onPageLoaded);
+            };
+
+            return $http.get(SERVER_URL + 'game').success(onPageLoaded);
         };
 
         var pushGamesToForm = function (games) {

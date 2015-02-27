@@ -5,10 +5,10 @@
 	<input id="gameIdInput" type="text" ng-model="gameVersionMeta.gameId" required>
 
 	<label for="gameNameInput">Name (required)</label>
-	<input id="gameNameInput" type="text" ng-model="gameMeta.name" required>
+	<input id="gameNameInput" type="text" ng-model="gameVersionMeta.name" required>
 
 	<label for="gameDescriptionInput">Description</label>
-	<textarea id="gameDescriptionInput" ng-model="gameMeta.description" placeholder="Version x.y..."></textarea>
+	<textarea id="gameDescriptionInput" ng-model="gameVersionMeta.description" placeholder="Version x.y..."></textarea>
 
 	<input type="submit" ng-click="createGameVersion()" value="Create game"> 
 </form>
