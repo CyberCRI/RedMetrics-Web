@@ -19,7 +19,8 @@ var gulp = require('gulp'),
     rev = require('gulp-rev'),
     templateCache = require('gulp-angular-templatecache'),
     rsync = require('rsyncwrapper').rsync,
-    run = require('gulp-run');
+    run = require('gulp-run'),
+    merge = require("merge-stream");
 
 
 // PORT NUMBERS
@@ -46,12 +47,12 @@ var pathToAssets = 'src/assets/**';
 gulp.task('default', ['dev'], function () {
 });
 
-gulp.task('dev', function () {
+gulp.task('dev', function (cb) {
     runSequence('cleanDevFolder', [
         'buildDev',
         'startDevServer',
         'watchSource'
-    ]);
+        ], cb);
 });
 
 gulp.task('buildDev', [
@@ -61,44 +62,45 @@ gulp.task('buildDev', [
     'buildJs',
     'copyIndex',
     'cacheTemplates'
-], function () {
-});
+]);
 
 gulp.task('cleanDevFolder', function (cb) {
     rimraf('dev', cb);
 });
 
 gulp.task('copyLibs', function () {
-    gulp.src(pathToLibs)
+    return gulp.src(pathToLibs)
         .pipe(copy('dev', {prefix: 1}));
 });
 
 gulp.task('copyAssets', function () {
-    gulp.src(pathToAssets)
+    return gulp.src(pathToAssets)
         .pipe(copy('dev', {prefix: 1}));
 });
 
 gulp.task('copyConfig', function () {
-    gulp.src(pathToConfig)
+    return gulp.src(pathToConfig)
         .pipe(gulp.dest('dev'));
 });
 
 gulp.task('buildJs', function () {
-    gulp.src(pathToJsSource)
+    return gulp.src(pathToJsSource)
         .pipe(concat('build.js'))
         .pipe(gulp.dest('dev'))
         .pipe(refresh(lrserver));
 });
 
 gulp.task('copyIndex', function () {
-    gulp.src(pathToIndexFile)
-        .pipe(copy('dev', {prefix: 1}))
-    gulp.src(pathToIndexFile)
-        .pipe(refresh(lrserver));
+    return merge(
+        gulp.src(pathToIndexFile)
+            .pipe(copy('dev', {prefix: 1})),
+        gulp.src(pathToIndexFile)
+            .pipe(refresh(lrserver))
+    );
 });
 
 gulp.task('cacheTemplates', function () {
-    gulp.src(pathToTemplates)
+    return gulp.src(pathToTemplates)
         .pipe(templateCache({module: 'app'}))
         .pipe(gulp.dest('dev'))
         .pipe(refresh(lrserver));
@@ -117,7 +119,7 @@ gulp.task('watchSource', function () {
 });
 
 gulp.task('lint', function () {
-    gulp.src(pathToJsSource)
+    return gulp.src(pathToJsSource)
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
 });
@@ -128,24 +130,31 @@ gulp.task('lint', function () {
 ///////////////////////////////////
 
 
-gulp.task('prod', function () {
-        runSequence(
-            'cleanProdFolder',
-            'buildDev',
-            'buildProd',
-            'copyAssetsToProd',
-            'copyConfigToProd',
-            'startProdServer'
-        );
-    }
-);
+gulp.task('prod', function (cb) {
+    return runSequence(
+        'cleanProdFolder',
+        'buildDev',
+        'buildProd',
+        'copyAssetsToProd',
+        'copyConfigToProd',
+        cb
+    );
+});
+
+gulp.task('prodServer', function (cb) {
+    return runSequence(
+        'prod',
+        'startProdServer',
+        cb
+    );
+});
 
 gulp.task('cleanProdFolder', function (cb) {
     rimraf('prod', cb);
 });
 
 gulp.task('buildProd', function () {
-    gulp.src('dev/index.html')
+    return gulp.src('dev/index.html')
         .pipe(usemin({
             css: [minifyCss()],
             html: [minifyHtml({empty: true})],
@@ -155,16 +164,16 @@ gulp.task('buildProd', function () {
 });
 
 gulp.task('copyAssetsToProd', function () {
-    gulp.src(pathToAssets)
+    return gulp.src(pathToAssets)
         .pipe(copy('prod', {prefix: 1}));
 });
 
 gulp.task('copyConfigToProd', function () {
-    gulp.src(pathToConfig)
+    return gulp.src(pathToConfig)
         .pipe(gulp.dest('prod'));
 });
 
-gulp.task('startProdServer', function () {
+gulp.task('startProdServer', function (cb) {
     var server = express();
     server.use(express.static('./prod'));
     server.all('/*', function (req, res) {
@@ -172,6 +181,7 @@ gulp.task('startProdServer', function () {
     });
     server.listen(serverport);
     console.log("Prod server listening on port " + serverport);
+    cb();
 });
 
 /////////////////////////////////////
@@ -179,7 +189,7 @@ gulp.task('startProdServer', function () {
 ///////////////////////////////////
 
 
-gulp.task('deploy', function() {
+gulp.task('deploy', function(cb) {
   rsync({
     ssh: true,
     src: './prod/',
@@ -191,5 +201,8 @@ gulp.task('deploy', function() {
   }, function(error, stdout, stderr, cmd) {
       gutil.log(stderr);
       gutil.log(stdout);
+
+      if(error) return cb(error);
+      else cb();
   });
 });
