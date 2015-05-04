@@ -196,7 +196,7 @@ gulp.task('deploy', function(cb) {
     dest: 'cridev@cybermongo.unige.ch:redmetrics-client',
     exclude: ['config.js'],
     recursive: true,
-    syncDest: true,
+    syncDestIgnoreExcl: true,
     args: ['--verbose']
   }, function(error, stdout, stderr, cmd) {
       gutil.log(stderr);
