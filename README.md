@@ -1,4 +1,4 @@
-# RedMetrics-client
+# RedMetrics-Web
 
 Client-side web app that provides a UI for querying data stored in a [RedMetrics](https://github.com/CyberCRI/RedMetrics) server.
 
