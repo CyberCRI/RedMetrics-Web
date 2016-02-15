@@ -54,6 +54,10 @@ angular.module('backend', [
             return $http.get(SERVER_URL + params.entityType, {params: params});
         };
 
+        service.searchBinCounts = function (params) {
+            return $http.get(SERVER_URL + params.entityType + "-count", {params: params});
+        };
+
         service.createGame = function (name, author, description) {
             var data = {
                 name: name,

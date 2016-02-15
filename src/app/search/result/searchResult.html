@@ -6,6 +6,10 @@
 <div ng-show="!search.searchInProgress && search.results.length > 0">
 	<h3>Results</h3>
 
+	<canvas id="line" class="chart chart-line" chart-data="search.binValues"
+		chart-labels="search.binLabels" chart-options="{ pointDot: false, showTooltips: true, tooltipTemplate:'<%= value %>' }">
+	</canvas> 
+
 	<p><a ng-href="{{ csvDownloadUrl }}">Download all pages as CSV</a></p>
 
 	<p>Showing page {{ search.pageNumber }} out of {{ search.pageCount }}</p> 
