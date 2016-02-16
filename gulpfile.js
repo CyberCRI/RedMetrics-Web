@@ -43,6 +43,7 @@ var pathToJsSource = ['src/app/**/*.js', '!'+pathToConfig];
 var pathToTemplates = 'src/app/**/*.html';
 var pathToLibs = ['src/vendor/**/*.js', 'src/vendor/**/*.css'];
 var pathToAssets = 'src/assets/**';
+var pathToSass = 'src/app/**/*.scss';
 
 gulp.task('default', ['dev'], function () {
 });
@@ -59,6 +60,7 @@ gulp.task('buildDev', [
     'copyLibs',
     'copyAssets',
     'copyConfig',
+    'buildCss',
     'buildJs',
     'copyIndex',
     'cacheTemplates'
@@ -90,6 +92,12 @@ gulp.task('buildJs', function () {
         .pipe(refresh(lrserver));
 });
 
+gulp.task('buildCss', function() {
+    return gulp.src(pathToSass)
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('dev'));
+})
+
 gulp.task('copyIndex', function () {
     return merge(
         gulp.src(pathToIndexFile)
@@ -116,6 +124,7 @@ gulp.task('watchSource', function () {
     gulp.watch(pathToJsSource, ['buildJs', 'lint']);
     gulp.watch(pathToIndexFile, ['copyIndex']);
     gulp.watch(pathToTemplates, ['cacheTemplates']);
+    gulp.watch(pathToSass, ['buildCss']);
 });
 
 gulp.task('lint', function () {
