@@ -6,9 +6,11 @@
 <div ng-show="!search.searchInProgress && search.results.length > 0">
 	<h3>Results</h3>
 
-	<canvas id="line" class="chart chart-line" chart-data="search.binValues"
-		chart-labels="search.binLabels" chart-options="{ pointDot: false, showTooltips: true, tooltipTemplate:'<%= value %>' }">
-	</canvas> 
+	<div class="chart-parent">
+		<canvas id="line" class="chart chart-line" chart-data="search.binValues"
+			chart-labels="search.binLabels" chart-options="{ pointDot: false, showTooltips: true, tooltipTemplate:'<%= value %>', pointHitDetectionRadius: 0, maintainAspectRatio: false, scaleShowVerticalLines: false }">
+		</canvas> 
+	</div>
 
 	<p><a ng-href="{{ csvDownloadUrl }}">Download all pages as CSV</a></p>
 
