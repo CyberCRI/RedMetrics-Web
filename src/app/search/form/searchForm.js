@@ -123,15 +123,7 @@ angular.module('search.form', [
                     key: 'type',
                     type: 'text',
                     label: 'Type',
-                    placeholder: 'Event type',
-                    watch: {
-                        expression: function () {
-                            return dataType.selected === 'event';
-                        },
-                        listener: function (field, _new) {
-                            field.hide = !_new;
-                        }
-                    }
+                    placeholder: 'Type'
                 },
                 {
                     key: 'section',

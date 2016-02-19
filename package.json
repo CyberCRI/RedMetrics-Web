@@ -18,7 +18,7 @@
     "gulp-rev": "*",
     "gulp-rimraf": "*",
     "gulp-run": "*",
-    "gulp-sass": "*",
+    "gulp-sass": "^2.1.0",
     "gulp-uglify": "*",
     "gulp-usemin": "*",
     "gulp-util": "*",

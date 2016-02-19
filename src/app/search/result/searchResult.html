@@ -6,7 +6,13 @@
 <div ng-show="!search.searchInProgress && search.results.length > 0">
 	<h3>Results</h3>
 
-	<p><a ng-href="{{ csvDownloadUrl }}">Download page as CSV</a></p>
+	<div class="chart-parent">
+		<canvas id="line" class="chart chart-line" chart-data="search.binValues"
+			chart-labels="search.binLabels" chart-options="{ pointDot: false, showTooltips: true, tooltipTemplate:'<%= value %>', pointHitDetectionRadius: 0, maintainAspectRatio: false, scaleShowVerticalLines: false }">
+		</canvas> 
+	</div>
+
+	<p><a ng-href="{{ csvDownloadUrl }}">Download all pages as CSV</a></p>
 
 	<p>Showing page {{ search.pageNumber }} out of {{ search.pageCount }}</p> 
 	<div>
@@ -18,7 +24,7 @@
 
 	<p>{{ search.results.length }} results:</p> 
 
-	<table>
+	<table id="search-results-table">
 		<tr>
 			<th>Server Time</th>
 			<th>User Time</th>
@@ -51,5 +57,5 @@
 </div>
 <div ng-show="!search.searchInProgress && search.results.length == 0">
 	<h3>No results</h3>
-	<p>User the form on the left to change the search parameters and click the "Search" button.</p>
+	<p>Use the form on the left to change the search parameters and click the "Search" button.</p>
 </div>
