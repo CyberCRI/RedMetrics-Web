@@ -14,7 +14,7 @@
     "gulp-livereload": "*",
     "gulp-minify-css": "*",
     "gulp-minify-html": "*",
-    "gulp-ng-annotate": "*",
+    "gulp-ng-annotate": "^2.0.0",
     "gulp-rev": "*",
     "gulp-rimraf": "*",
     "gulp-run": "*",
