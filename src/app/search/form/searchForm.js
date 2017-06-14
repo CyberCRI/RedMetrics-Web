@@ -120,6 +120,12 @@ angular.module('search.form', [
                     placeholder: 'Player ID'
                 },
                 {
+                    key: 'playerExternalId',
+                    type: 'text',
+                    label: 'Player External ID',
+                    placeholder: 'Player External ID'
+                },
+                {
                     key: 'type',
                     type: 'text',
                     label: 'Type',
